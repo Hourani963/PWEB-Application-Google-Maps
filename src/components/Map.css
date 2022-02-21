@@ -1,0 +1,19 @@
+.Map {
+  border: 5px solid #00ffaa;
+  text-align: center;
+  width: 180vh;
+  height: 90vh;
+  margin: auto;
+}
+
+.iconsL {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.iconsR {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

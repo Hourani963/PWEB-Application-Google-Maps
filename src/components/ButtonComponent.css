@@ -1,0 +1,11 @@
+.icon {
+  width: 130px;
+  height: 130px;
+  padding-top: 10px;
+}
+
+.button {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
