@@ -14,7 +14,11 @@ import './Map.css'
 import velibs from '../json/velib.json'
 import cinemas from "../json/cinema.json"
 import SonderCityStyle from "./styles/SonderCityStyle"
-
+import toilettes from "../json/sanisettesparis.json"
+import wifiFree from "../json/sites-disposant-du-service-paris-wi-fi.json"
+import BornChergeurElectrique from "../json/belib-points-de-recharge-pour-vehicules-electriques-disponibilite-temps-reel.json"
+import espaceVert from "../json/plu-espaces-verts-proteges-evp.json"
+import fontainBoir from "../json/fontaines-a-boire.json"
 
 
 const libraries = ["places"];
@@ -65,6 +69,28 @@ export default function Map(){
     const toggleShowMetro = React.useCallback(() => {
         setShowMetro(current => !current);
       }, []);
+
+    const [isShowToilette, setShowToilette] = React.useState(false);
+    const toggleShowToilette = React.useCallback(() => {
+        setShowToilette(current => !current);
+      }, []);
+
+    const [isShowWifi, setShowWifi] = React.useState(false);
+    const toggleShowWifi = React.useCallback(() => {
+        setShowWifi(current => !current);
+      }, []);
+    const [isShowBiblio, setShowBiblio] = React.useState(false);
+    const toggleShowBiblio = React.useCallback(() => {
+        setShowBiblio(current => !current);
+    }, []);
+    const [isShowEspaceVert, setShowEspaceVert] = React.useState(false);
+    const toggleShowEspaceVert = React.useCallback(() => {
+        setShowEspaceVert(current => !current);
+    }, []);
+    const [isShowFontainBoir, setShowFontainBoir] = React.useState(false);
+    const toggleShowFontainBoir = React.useCallback(() => {
+        setShowFontainBoir(current => !current);
+    }, []);
     //******************** */
     const onMapClick = React.useCallback((e) => {
         setMarkers((current) => [
@@ -90,7 +116,6 @@ export default function Map(){
     if (!isLoaded) return "Loading map";
 
     
-    console.log(isShowVelib)
     return(
         <div>
             <div className="Map">
@@ -134,7 +159,6 @@ export default function Map(){
                 ) : null}
 
                 {/* SHOW METRO STATIONS */}
-                
                 {isShowMetro ?
                 <>
                     {metros.nodes.map((metro) => {
@@ -173,7 +197,8 @@ export default function Map(){
                 })}
                 </> 
                 : null}
-
+                
+                {/*SHOW VELIB*/}
                 {isShowVelib ?
                 <>
                     {velibs.map((velib) => {
@@ -183,6 +208,81 @@ export default function Map(){
                         position={{lat: velib.geometry.coordinates[1], lng : velib.geometry.coordinates[0]}}
                         icon={{
                             url: `/velib.svg`,
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(15, 15),
+                            scaledSize: new window.google.maps.Size(30, 30),
+                            }}
+                        />
+                    )
+                })}
+                </> 
+                : null}
+
+                {isShowToilette?
+                <>
+                    {toilettes.map((toilette) => {
+                    return(
+                        <Marker
+                        key={toilette.recordid}
+                        position={{lat: toilette.geometry.coordinates[1], lng : toilette.geometry.coordinates[0]}}
+                        icon={{
+                            url: `/toilette.svg`,
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(15, 15),
+                            scaledSize: new window.google.maps.Size(30, 30),
+                            }}
+                        />
+                    )
+                })}
+                </> 
+                : null}
+                
+                {isShowWifi?
+                <>
+                    {wifiFree.map((wifi) => {
+                    return(
+                        <Marker
+                        key={wifi.recordid}
+                        position={{lat: wifi.geometry.coordinates[1], lng : wifi.geometry.coordinates[0]}}
+                        icon={{
+                            url: `/wifi.svg`,
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(15, 15),
+                            scaledSize: new window.google.maps.Size(30, 30),
+                            }}
+                        />
+                    )
+                })}
+                </> 
+                : null}
+                {isShowBiblio?
+                <>
+                    {BornChergeurElectrique.map((chargeur) => {
+                    return(
+                        <Marker
+                        key={chargeur.recordid}
+                        position={{lat: chargeur.geometry.coordinates[1], lng : chargeur.geometry.coordinates[0]}}
+                        icon={{
+                            url: `/charger.svg`,
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(15, 15),
+                            scaledSize: new window.google.maps.Size(30, 30),
+                            }}
+                        />
+                    )
+                })}
+                </> 
+                : null}
+                 
+                {isShowFontainBoir?
+                <>
+                    {fontainBoir.map((fontain) => {
+                    return(
+                        <Marker
+                        key={fontain.recordid}
+                        position={{lat: fontain.geometry.coordinates[1], lng : fontain.geometry.coordinates[0]}}
+                        icon={{
+                            url: `/fontain.svg`,
                             origin: new window.google.maps.Point(0, 0),
                             anchor: new window.google.maps.Point(15, 15),
                             scaledSize: new window.google.maps.Size(30, 30),
@@ -202,7 +302,7 @@ export default function Map(){
                     >
                     <img src="./velib.svg"/>
                 </Button>
-                <Button className="button" style={{backgroundColor: "blue"}}
+                <Button className="button" style={{backgroundColor: "green"}}
                     onClick={toggleShowCinema}
                     >
                     <img src="./cinema.svg"/>
@@ -213,24 +313,24 @@ export default function Map(){
                     <img src="./metro.svg"/>
                 </Button>
                 <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                    onClick={toggleShowToilette}
                     >
-                    <img src="./cinema.svg"/>
+                    <img src="./toilette.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "white"}}
+                    onClick={toggleShowWifi}
+                    >
+                    <img src="./wifi.svg"/>
                 </Button>
                 <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                    onClick={toggleShowBiblio}
                     >
-                    <img src="./cinema.svg"/>
+                    <img src="./charger.svg"/>
                 </Button>
                 <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                    onClick={toggleShowFontainBoir}
                     >
-                    <img src="./cinema.svg"/>
-                </Button>
-                <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
-                    >
-                    <img src="./cinema.svg"/>
+                    <img src="./fontain.svg"/>
                 </Button>
             </div>
             <div className="iconsR">
