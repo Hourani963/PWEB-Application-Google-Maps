@@ -14,7 +14,8 @@ import './Map.css'
 import velibs from '../json/velib.json'
 import cinemas from "../json/cinema.json"
 import SonderCityStyle from "./styles/SonderCityStyle"
-import ButtonComponent from "./ButtonComponent";
+
+
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -44,11 +45,27 @@ const styleC= {
                  
 }
 
-
 export default function Map(){
+    
     const [markers, setMarkers] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
 
+    // Show Icons on map****************/
+    const [isShowVelib, setShowVelib] = React.useState(false);
+    const toggleShowVelib = React.useCallback(() => {
+        setShowVelib(current => !current);
+      }, []);
+
+    const [isShowCinema, setShowCinema] = React.useState(false);
+    const toggleShowCinema = React.useCallback(() => {
+        setShowCinema(current => !current);
+      }, []);
+
+    const [isShowMetro, setShowMetro] = React.useState(false);
+    const toggleShowMetro = React.useCallback(() => {
+        setShowMetro(current => !current);
+      }, []);
+    //******************** */
     const onMapClick = React.useCallback((e) => {
         setMarkers((current) => [
           ...current,
@@ -69,10 +86,11 @@ export default function Map(){
         mapRef.current = map;
     }, []);
 
-
     if (loadError) return "Error loadin map";
     if (!isLoaded) return "Loading map";
 
+    
+    console.log(isShowVelib)
     return(
         <div>
             <div className="Map">
@@ -116,110 +134,146 @@ export default function Map(){
                 ) : null}
 
                 {/* SHOW METRO STATIONS */}
-                {metros.nodes.map((metro) => (
-                <Marker
-                    key={metro.id}
-                    position={{lat: metro.latitude, lng : metro.longitude}}
-                    icon={{
-                        url: `/metro.svg`,
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(15, 15),
-                        scaledSize: new window.google.maps.Size(30, 30),
-                        }}
-                    />
-                ))}
-
-                {/* SHOW VELIB STATIONS */}
-                {velibs.map((velib) => (
-                <Marker
-                    key={velib.fields.stationcode}
-                    position={{lat: velib.geometry.coordinates[1], lng : velib.geometry.coordinates[0]}}
-                    icon={{
-                        url: `/velib.svg`,
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(15, 15),
-                        scaledSize: new window.google.maps.Size(30, 30),
-                        }}
-                    />
-                ))}
+                
+                {isShowMetro ?
+                <>
+                    {metros.nodes.map((metro) => {
+                    return(
+                        <Marker
+                            key={metro.id}
+                            position={{lat: metro.latitude, lng : metro.longitude}}
+                            icon={{
+                                url: `/metro.svg`,
+                                origin: new window.google.maps.Point(0, 0),
+                                anchor: new window.google.maps.Point(15, 15),
+                                scaledSize: new window.google.maps.Size(30, 30),
+                                }}
+                        />
+                    )
+                })}
+                </> 
+                : null}
+                
                 {/* SHOW CINEMA STATIONS */}
-                {cinemas.map((cinema) => (
-                <Marker
-                    key={cinema.recordid}
-                    position={{lat: cinema.geometry.coordinates[1] , lng :cinema.geometry.coordinates[0] }}
-                    icon={{
-                        url: `/cinema.svg`,
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(15, 15),
-                        scaledSize: new window.google.maps.Size(30, 30),
-                        }}
-                    />
-                ))}
+                {isShowCinema ?
+                <>
+                    {cinemas.map((cinema) => {
+                    return(
+                        <Marker
+                            key={cinema.recordid}
+                            position={{lat: cinema.geometry.coordinates[1] , lng :cinema.geometry.coordinates[0] }}
+                            icon={{
+                                url: `/cinema.svg`,
+                                origin: new window.google.maps.Point(0, 0),
+                                anchor: new window.google.maps.Point(15, 15),
+                                scaledSize: new window.google.maps.Size(30, 30),
+                                }}
+                        />
+                    )
+                })}
+                </> 
+                : null}
 
+                {isShowVelib ?
+                <>
+                    {velibs.map((velib) => {
+                    return(
+                        <Marker
+                        key={velib.fields.stationcode}
+                        position={{lat: velib.geometry.coordinates[1], lng : velib.geometry.coordinates[0]}}
+                        icon={{
+                            url: `/velib.svg`,
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(15, 15),
+                            scaledSize: new window.google.maps.Size(30, 30),
+                            }}
+                        />
+                    )
+                })}
+                </> 
+                : null}
+                
             </GoogleMap>
             </div>
+            
             <div className="iconsL">
-                <ButtonComponent
-                    color = "red"
-                    icon = "./metro.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "blue"
-                    icon = "./cinema.svg"
-                />
-                <ButtonComponent
-                    color = "yellow"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./velib.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowCinema}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowMetro}
+                    >
+                    <img src="./metro.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
             </div>
             <div className="iconsR">
-                <ButtonComponent
-                    color = "red"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
-                <ButtonComponent
-                    color = "green"
-                    icon = "./velib.svg"
-                />
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
+                <Button className="button" style={{backgroundColor: "blue"}}
+                    onClick={toggleShowVelib}
+                    >
+                    <img src="./cinema.svg"/>
+                </Button>
             </div>
+            
             
         </div>
     )
     
 }
+

@@ -7,13 +7,25 @@
 }
 
 .iconsL {
+  width: 130px;
   position: absolute;
   top: 5px;
   left: 5px;
 }
 
 .iconsR {
+  width: 130px;
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.button {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+
+.button:hover {
+  background-color: black !important;
 }
