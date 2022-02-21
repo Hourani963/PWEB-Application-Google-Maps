@@ -17,14 +17,16 @@ import SonderCityStyle from "./styles/SonderCityStyle"
 import toilettes from "../json/sanisettesparis.json"
 import wifiFree from "../json/sites-disposant-du-service-paris-wi-fi.json"
 import BornChergeurElectrique from "../json/belib-points-de-recharge-pour-vehicules-electriques-disponibilite-temps-reel.json"
-import espaceVert from "../json/plu-espaces-verts-proteges-evp.json"
 import fontainBoir from "../json/fontaines-a-boire.json"
-
+import EmptyRoads from "./styles/EmptyRoads"
+import MainRoads from "./styles/MainRoads"
+import GoogleClassic from "./styles/GoogleClassique"
+import desert from "./styles/Desert"
 
 const libraries = ["places"];
 const mapContainerStyle = {
-    width : '180vh',
-    height : '90vh',
+    width : '202vh',
+    height : '98vh',
 };
 
 
@@ -48,9 +50,33 @@ const styleC= {
     disableDefaultUI : true, 
                  
 }
+const styleD= {
+    styles :EmptyRoads , 
+    disableDefaultUI : true, 
+                 
+}
+const styleE= {
+    styles :MainRoads , 
+    disableDefaultUI : true, 
+                 
+}
+const styleF= {
+    styles :desert , 
+    disableDefaultUI : true, 
+                 
+}
+const styleG= {
+    styles :GoogleClassic , 
+    disableDefaultUI : true, 
+                 
+}
 
 export default function Map(){
     
+    const [style, setStyle] = React.useState(styleG);
+    const changeStyle = React.useCallback((newstyle) => {
+        setStyle(current => newstyle);
+      }, []);
     const [markers, setMarkers] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
 
@@ -82,10 +108,6 @@ export default function Map(){
     const [isShowBiblio, setShowBiblio] = React.useState(false);
     const toggleShowBiblio = React.useCallback(() => {
         setShowBiblio(current => !current);
-    }, []);
-    const [isShowEspaceVert, setShowEspaceVert] = React.useState(false);
-    const toggleShowEspaceVert = React.useCallback(() => {
-        setShowEspaceVert(current => !current);
     }, []);
     const [isShowFontainBoir, setShowFontainBoir] = React.useState(false);
     const toggleShowFontainBoir = React.useCallback(() => {
@@ -123,7 +145,7 @@ export default function Map(){
                 mapContainerStyle={mapContainerStyle} 
                 zoom={15} 
                 center={center}
-                options = {styleC}
+                options = {style}
                 onClick={onMapClick}
                 onLoad={onMapLoad}
             >
@@ -334,40 +356,40 @@ export default function Map(){
                 </Button>
             </div>
             <div className="iconsR">
-                <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                <Button className="button" style={{backgroundColor: "white"}}
+                    onClick={() => changeStyle(styleA)}
                     >
-                    <img src="./cinema.svg"/>
+                    <img src="./A.svg"/>
                 </Button>
-                <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                <Button className="button" style={{backgroundColor: "white"}}
+                    onClick={() => changeStyle(styleB)}
                     >
-                    <img src="./cinema.svg"/>
+                    <img src="./B.ico"/>
                 </Button>
-                <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                <Button className="button" style={{backgroundColor: "white"}}
+                    onClick={() => changeStyle(styleC)}
                     >
-                    <img src="./cinema.svg"/>
+                    <img src="./C.ico"/>
                 </Button>
-                <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                <Button className="button" style={{backgroundColor: "white"}}
+                    onClick={() => changeStyle(styleD)}
                     >
-                    <img src="./cinema.svg"/>
+                    <img src="./D.ico"/>
                 </Button>
-                <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                <Button className="button" style={{backgroundColor: "white"}}
+                    onClick={() => changeStyle(styleE)}
                     >
-                    <img src="./cinema.svg"/>
+                    <img src="./E.ico"/>
                 </Button>
-                <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                <Button className="button" style={{backgroundColor: "white"}}
+                    onClick={() => changeStyle(styleF)}
                     >
-                    <img src="./cinema.svg"/>
+                    <img src="./F.ico"/>
                 </Button>
-                <Button className="button" style={{backgroundColor: "blue"}}
-                    onClick={toggleShowVelib}
+                <Button className="button" style={{backgroundColor: "white"}}
+                    onClick={() => changeStyle(styleG)}
                     >
-                    <img src="./cinema.svg"/>
+                    <img src="./G.ico"/>
                 </Button>
             </div>
             
