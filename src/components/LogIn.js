@@ -32,7 +32,7 @@ class loginPage extends React.Component {
         formBody = formBody.join("&");
         console.log(formBody);
         
-        fetch("http://localhost:4444/mysql/signin", {
+        fetch("http://localhost:4444/map/signin", {
             method:"POST", 
             headers: {
                 'Access-Control-Allow-Origin': '*',
