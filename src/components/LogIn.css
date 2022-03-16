@@ -1,0 +1,66 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapLogin {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  box-shadow: 0px 4px 10px 3px rgba(120, 136, 179, 0.5);
+  border-radius: 19px;
+  padding: 3em;
+  color: #ec7404;
+  font-size: large;
+  margin-top: 10%;
+  width: 300px;
+}
+.wrapLogin label {
+  display: block;
+  margin-top: 10%;
+  margin-bottom: 1%;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ec7404;
+}
+.btnSend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+#send {
+  color: white;
+  border: 0px solid transparent;
+  width: 185.15px;
+  height: 46px;
+  background: #ec7404;
+  box-shadow: 2px 2px 2px rgba(94, 94, 94, 0.25);
+  border-radius: 4px;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+}
+
+.showPSWchkb {
+  display: flex;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+#lEyePSW {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 25px;
+  margin-left: 5px;
+}
