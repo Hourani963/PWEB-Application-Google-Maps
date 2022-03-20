@@ -10,7 +10,7 @@ public class ident {
 
     @PostMapping("signin")
     public boolean signIn(@RequestParam("email") String email, @RequestParam("password") String pass){
-        if(email.equals("ahmad") && pass.equals("syfsa")){
+        if(email.equals("admin") && pass.equals("root")){
             return true;
         }
         return false;

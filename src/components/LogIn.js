@@ -14,7 +14,7 @@ class loginPage extends React.Component {
             login:false
         }
     }
-
+    
     handleSubmit(e){
         e.preventDefault();
         const details ={
@@ -30,7 +30,6 @@ class loginPage extends React.Component {
         }   
         
         formBody = formBody.join("&");
-        console.log(formBody);
         
         fetch("http://localhost:4444/map/signin", {
             method:"POST", 
@@ -45,7 +44,8 @@ class loginPage extends React.Component {
             (result) => {
                 console.log(result);
                 if(result){
-                    this.setState({ login: true })
+                    this.props.onChange();
+                    
                 }
             },
             (error) => {
